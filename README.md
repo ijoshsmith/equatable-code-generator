@@ -15,10 +15,7 @@ let areSamePerson = (person1 == person2)
 ```
 Writing code to check if two things are the same is boring, so make your computer do it!
 ```swift
-// The values passed in here don't really matter.
-let person = Person(firstName: "Clown", lastName: "Baby", birthday: Date(), inchesTall: 18)
-
-// This prints Equatable code for the Person struct.
+// This prints Equatable protocol code for the Person struct.
 adoptEquatable(person)
 ```
 The `adoptEquatable` function prints this to the console in Xcode…
