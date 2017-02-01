@@ -8,7 +8,12 @@ struct Person {
     let inchesTall: Int
 }
 ```
-In order to allow `Person` instances to be compared for equality using the `==` operator the struct must adopt Swift's `Equatable` protocol. Writing that code is boring, so make your computer do it! Here's how:
+In order to allow `Person` instances to be compared for equality, using the `==` operator, the struct must adopt Swift's `Equatable` protocol. 
+```swift
+// This doesn't work unless Person adopts the Equatable protocol.
+let areSamePerson = (person1 == person2)
+```
+Writing code to check if two things are the same is boring, so make your computer do it!
 ```swift
 // The values passed in here don't really matter.
 let person = Person(firstName: "Clown", lastName: "Baby", birthday: Date(), inchesTall: 18)
