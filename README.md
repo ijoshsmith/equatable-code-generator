@@ -1,5 +1,44 @@
 # Equatable code generator
-This Swift utility function generates `Equatable` protocol code, so that you don't have to.
+Suppose you have a struct in your Swift app like this:
+```swift
+struct Person {
+    let firstName: String
+    let lastName: String
+    let birthday: Date
+    let inchesTall: Int
+}
+```
+In order to allow `Person` instances to be compared for equality using the `==` operator the struct must adopt Swift's `Equatable` protocol. Writing that code is boring, so make your computer do it! Here's how:
+```swift
+// The values passed in here don't really matter.
+let person = Person(firstName: "Clown", lastName: "Baby", birthday: Date(), inchesTall: 18)
+
+// This prints Equatable code for the Person struct.
+adoptEquatable(person)
+```
+The `adoptEquatable` function prints this to the console in Xcode…
+```swift
+extension Person: Equatable {
+    public static func ==(lhs: Person, rhs: Person) -> Bool {
+        guard lhs.firstName == rhs.firstName else { return false }
+        guard lhs.lastName == rhs.lastName else { return false }
+        guard lhs.birthday == rhs.birthday else { return false }
+        guard lhs.inchesTall == rhs.inchesTall else { return false }
+        return true
+    }
+}
+```
+Simply copy that code, paste it into your project, and you're done. 🙌
+
+## Use it while debugging
+Once you've added `adoptEquatable` to your project you can also call it while debugging, via the `po` command.
+
+![alt tag](call-while-debugging.png)
+
+That's handy!
+
+## Show me the code
+Feel free to copy this function into your project and start using it.
 ```swift
 import Foundation
 
@@ -42,39 +81,4 @@ public func adoptEquatable(_ subject: Any) {
     print(sourceCode)
 }
 ```
-## Demo
-Suppose you have a struct in your Swift app like this:
-```swift
-struct Person {
-    let firstName: String
-    let lastName: String
-    let birthday: Date
-    let inchesTall: Int
-}
-```
-In order to allow `Person` instances to be compared for equality using the `==` operator the struct must adopt Swift's `Equatable` protocol. Writing that code is boring, so make your computer do it! Here's how:
-```swift
-// The values passed in here don't really matter.
-let person = Person(firstName: "Clown", lastName: "Baby", birthday: Date(), inchesTall: 18)
-
-// This prints Equatable code for the Person struct.
-adoptEquatable(person)
-```
-This prints the following Swift code to the Xcode console…
-```swift
-extension Person: Equatable {
-    public static func ==(lhs: Person, rhs: Person) -> Bool {
-        guard lhs.firstName == rhs.firstName else { return false }
-        guard lhs.lastName == rhs.lastName else { return false }
-        guard lhs.birthday == rhs.birthday else { return false }
-        guard lhs.inchesTall == rhs.inchesTall else { return false }
-        return true
-    }
-}
-```
-Now just copy that code, add it to your project, and you're done. 🙌
-
-## Use it while debugging
-Once you've added `adoptEquatable()` to your project you can call it while debugging, via the `po` command.
-
-![alt tag](call-while-debugging.png)
+This repository also includes an Xcode playground if you want to experiment.
